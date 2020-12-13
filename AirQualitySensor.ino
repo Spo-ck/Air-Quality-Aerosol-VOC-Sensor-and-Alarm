@@ -7,7 +7,9 @@
 
 // EEPORM
 #define EEPROM_size       1
-int Mode_Register       = 0;
+const int Mode_Register       = 0;
+const int Activity_Register       = 1;
+const int Sound_Register       = 2;
 
 // Modes
 #define serial_mode false // if false, no telemetry will be displayed on serial
@@ -31,7 +33,7 @@ int   eco2_history[num_history];
 int   history_postion   = 0;
 int   history_mean      = 0;
 int   history_mean_num  = 0;
-unsigned long  history_mean_time    = 10000;
+unsigned long  history_mean_time    = 10000;  // Time that is used to calculate the mean over for 1 data point
 unsigned long  history_mean_millis  = 0;
 
 // Buzzer
@@ -47,15 +49,17 @@ bool LED_State          = false;
 // Alarm
 bool ALARM              = false;
 long last_ALARM         = -60000;
-int eCO2_Threshold    = 1000;
-int tvoc_Threshold    = 150;
+int eCO2_Threshold      = 1000; // ppm
+int tvoc_Threshold      = 150;  // ppb
+String alarm_mode       = "sound";
 
 // Display
-String display_mode     = "diagram";
-String display_mode_last = "diagram";
-String display_activity = "always_on";
-int    display_activity_time = 0;
-const int diagram_max = 2000;
+String display_mode           = "diagram";
+String display_mode_last      = "diagram";
+String display_activity       = "5s_on";
+String display_activity_last  = display_activity;
+int    display_activity_time  = -1;
+uint8_t display_brightness    = 255;
 
 // Buttons
 const int Button_A      = 37;
@@ -87,6 +91,12 @@ void setup() {
 //  // Flash EEPROM
 //  EEPROM.write(Mode_Register, 0); // Write 0 to register 0
 //  EEPROM.commit();
+//  
+//  EEPROM.write(Activity_Register, 0); // Write 0 to register 0
+//  EEPROM.commit();
+//  
+//  EEPROM.write(Sound_Register, 1); // Write 0 to register 0
+//  EEPROM.commit();
   // Read Out Mode From EEPROM and Change Mode
   int last_mode = EEPROM.read(Mode_Register);
   if (last_mode == 0){    
@@ -100,9 +110,27 @@ void setup() {
   }
   display_mode_last = display_mode;
 
+  last_mode = EEPROM.read(Activity_Register);
+  if (last_mode == 0){    
+    display_activity = "always_on";
+  }
+  else  if (last_mode == 5){
+    display_activity = "5s_on";
+  }
+  display_activity_last = display_activity;
+
+  last_mode = EEPROM.read(Sound_Register);
+  if (last_mode == 0){    
+    alarm_mode == "silent";
+  }
+  else  if (last_mode == 1){
+    alarm_mode == "sound";
+  }
+  
   // Init Display
   M5.Lcd.setRotation(1);
   M5.Lcd.fillScreen(BLUE);
+//  M5.Lcd.setBrightness(display_brightness); // Doesn't work with the Library
   
   // Init Sensors
   // SGP30
@@ -193,7 +221,9 @@ void setup() {
 
   // Button
   pinMode(Button_A, INPUT_PULLUP);
+  pinMode(Button_B, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(Button_A), Function_Button_A, HIGH);
+  attachInterrupt(digitalPinToInterrupt(Button_B), Function_Button_B, HIGH);
 
   // RTC
   // Generate Struct
@@ -354,18 +384,17 @@ void store_history() {
 // Buttons
 ////////////////////////
 void Function_Button_A() {
-  // Reset Screen
-  M5.Lcd.fillScreen(TFT_BLACK);
 
-  // Choose new Display Mode
-  if (display_mode == "air_quality"){
-    display_mode = "all_readings";
+  if (display_activity != "always_on" && display_activity_time == -1) {
+    // if the display is not always on, the time when the putton is pressed needs to be stored
+    display_activity_time = millis();
+ //   M5.Lcd.setBrightness(display_brightness); ; // Doesn't work with the Library
   }
-  else if (display_mode == "all_readings"){
-    display_mode = "diagram";
+  else if (display_activity != "always_on" && display_activity_time != -1) {
+    change_mode();
   }
-  else if (display_mode == "diagram"){
-    display_mode = "air_quality";    
+  else {
+    change_mode();
   }
   
 
@@ -376,6 +405,83 @@ void Function_Button_A() {
 // in this case, the array will be read out, which is not possible when the controller is in writing mode,
 // what would then trigger a reboot
 }
+
+void Function_Button_B() {
+  display_activity_last = display_activity;
+  display_activity = "always_on";
+  
+  display_mode = "settings";
+
+  detachInterrupt(digitalPinToInterrupt(Button_A));
+  detachInterrupt(digitalPinToInterrupt(Button_B));
+  attachInterrupt(digitalPinToInterrupt(Button_A), Function_Button_A1, HIGH);
+  attachInterrupt(digitalPinToInterrupt(Button_B), Function_Button_B1, HIGH);
+
+  M5.Lcd.drawLine(3, 0, 3, 25, RED);
+}
+
+
+void Function_Button_A1() {
+  if (display_activity_last == "always_on") {
+    display_activity_last = "5s_on";
+  }
+  else if (display_activity_last == "5s_on") {
+    display_activity_last = "always_on";
+  }
+}
+
+void Function_Button_B1() {
+  detachInterrupt(digitalPinToInterrupt(Button_A));
+  detachInterrupt(digitalPinToInterrupt(Button_B));
+  pinMode(Button_A, INPUT_PULLUP);
+  pinMode(Button_B, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(Button_A), Function_Button_A2, HIGH);
+  attachInterrupt(digitalPinToInterrupt(Button_B), Function_Button_B2, HIGH);
+
+  M5.Lcd.drawLine(3, 0, 3, 25, TFT_BLACK);
+  M5.Lcd.drawLine(3, 33, 3, 55, RED);
+}
+
+
+void Function_Button_A2() {
+  
+  if (alarm_mode == "sound") {
+    alarm_mode = "silent";
+  }
+  else if (alarm_mode = "silent") {
+    alarm_mode = "sound";
+  }
+}
+
+void Function_Button_B2() {
+  display_mode = display_mode_last;
+  display_activity = display_activity_last;
+
+  M5.Lcd.fillScreen(TFT_BLACK);
+    
+  detachInterrupt(digitalPinToInterrupt(Button_A));
+  detachInterrupt(digitalPinToInterrupt(Button_B));
+  pinMode(Button_A, INPUT_PULLUP);
+  pinMode(Button_B, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(Button_A), Function_Button_A, HIGH);
+  attachInterrupt(digitalPinToInterrupt(Button_B), Function_Button_B, HIGH);
+}
+
+void change_mode() {
+  M5.Lcd.fillScreen(TFT_BLACK);
+  
+  // Choose new Display Mode
+  if (display_mode == "air_quality"){
+    display_mode = "all_readings";
+  }
+  else if (display_mode == "all_readings"){
+    display_mode = "diagram";
+  }
+  else if (display_mode == "diagram"){
+    display_mode = "air_quality";    
+  }
+}
+
 
 void Save_Mode_To_EEPROM() {
   if (display_mode == "air_quality"){
@@ -505,6 +611,21 @@ void display_readings(){
       }
     }
   }
+  else if (display_mode == "settings"){
+    
+    M5.Lcd.setTextColor(TFT_WHITE, TFT_BLACK);
+    M5.Lcd.setTextSize(1);
+
+    M5.Lcd.setCursor(10, 5);
+    M5.Lcd.print("Display Activity: ");
+    M5.Lcd.setCursor(10, 15);
+    M5.Lcd.print(String(display_activity_last) + "     ");
+  
+    M5.Lcd.setCursor(10, 35);
+    M5.Lcd.print("Alarm Sound:   ");
+    M5.Lcd.setCursor(10, 45);
+    M5.Lcd.print(String(alarm_mode) + "     ");    
+  }
 }
 
 void print_readings() {
@@ -530,12 +651,29 @@ void loop() {
   store_history();    // Save Readings in History
 
   // Sensor Display
+  // Serial
   if (serial_mode == true) {
     print_readings();
   }
-  
+  // Display
   if (display_activity == "always_on") {
     display_readings();
+  }
+  else if (display_activity == "5s_on") {
+    
+    if (millis() - display_activity_time < 5000 && display_activity_time != -1) {
+      display_readings();
+    }
+    else if (millis() - display_activity_time >= 5000 && display_activity_time != -1) {
+      M5.Lcd.fillScreen(TFT_BLACK);
+//      M5.Lcd.setBrightness(0); ; // Doesn't work with the Library
+      display_activity_time = -1;
+    }    
+    else if (eco2 > (eCO2_Threshold * 0.8) || tvoc > (tvoc_Threshold * 0.8)) {
+      if (display_activity_time == -1) {
+        display_activity_time = millis();
+      }
+    }
   }
 
   // Check for Alarms
@@ -546,7 +684,7 @@ void loop() {
       ALARM = true;
       ALARM_LED("Activate");
   
-      if (millis() - last_ALARM > 60000) {
+      if (millis() - last_ALARM > 60000 && alarm_mode == "sound") {
         ALARM_Buzzer();
         last_ALARM = millis();
       }
@@ -559,7 +697,7 @@ void loop() {
   }
   
   // if the mode has changed for the display, store this in eeprom
-  if (display_mode_last != display_mode) {
+  if (display_mode_last != display_mode && display_mode != "settings") {
     Save_Mode_To_EEPROM();
   }
   
