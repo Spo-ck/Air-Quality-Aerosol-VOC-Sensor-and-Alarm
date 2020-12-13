@@ -407,6 +407,8 @@ void Function_Button_A() {
 }
 
 void Function_Button_B() {
+  M5.Lcd.fillScreen(TFT_BLACK);
+  
   display_activity_last = display_activity;
   display_activity = "always_on";
   
@@ -564,6 +566,12 @@ void display_readings(){
     M5.Lcd.setCursor(50, 65);
     M5.Lcd.print(humidity);
     M5.Lcd.println(" %   ");
+
+    M5.Lcd.setCursor(115, 50);
+    M5.Lcd.print("Bat: ");
+    M5.Lcd.setCursor(115, 65);
+    M5.Lcd.print((((M5.Axp.GetBatVoltage() - 3.00) / 1.2) * 100));
+    M5.Lcd.println(" %");
   }
   else if (display_mode == "diagram"){
     // Display Axis
@@ -700,6 +708,12 @@ void loop() {
   if (display_mode_last != display_mode && display_mode != "settings") {
     Save_Mode_To_EEPROM();
   }
+
+  Serial.print(M5.Axp.GetBatVoltage());
+  Serial.print(" - ");
+  Serial.print(M5.Axp.GetAPSVoltage());
+  Serial.print(" - ");
+  Serial.println(M5.Axp.GetWarningLevel());
   
   // Just run the loop 4 times per second
   if (millis() - time_millis < loop_interval) {
