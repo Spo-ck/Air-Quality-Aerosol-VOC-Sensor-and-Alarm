@@ -570,7 +570,17 @@ void display_readings(){
     M5.Lcd.setCursor(115, 50);
     M5.Lcd.print("Bat: ");
     M5.Lcd.setCursor(115, 65);
-    M5.Lcd.print((((M5.Axp.GetBatVoltage() - 3.00) / 1.2) * 100));
+    if (M5.Axp.GetWarningLevel()) {
+      M5.Lcd.setTextColor(TFT_WHITE, RED);
+    }
+    float bat_level = ((M5.Axp.GetBatVoltage() - 3.00) / 0.9) * 100;
+    if (bat_level > 100) {
+      M5.Lcd.print(100);
+    }
+    else {      
+      M5.Lcd.print(bat_level);
+    }
+    
     M5.Lcd.println(" %");
   }
   else if (display_mode == "diagram"){
