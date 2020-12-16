@@ -5,7 +5,7 @@ During the COVID-19 Pandemic, monitoring the Air Quality is important. Because o
 ![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7308.jpg?raw=true)
 ***System as Smart Watch close up***
 
-![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7307.jpg)
+![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7307.jpg?raw=true)
 ***System as Smart Watch***
 
 ## Electronic
@@ -36,7 +36,7 @@ During the COVID-19 Pandemic, monitoring the Air Quality is important. Because o
 * G32:  BME280 SDA, SGP30 SDA
 * G33:  BME280 SCL, SGP30 SCL
 
-![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Electronic/Schematic.png)
+![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Electronic/Schematic.png?raw=true)
 
 ***Electronic Schematic***
 
@@ -46,13 +46,13 @@ The system basically consists out of the M5StickC Microcontroller, a Buzzer Modu
 All 3 Components are soldered together on a single prototyping PCD. To this prototyping PCD is then soldered a 1x8 Pin Header (2.54mm) so that the PCB can be connected to the Front Pin Header of the M5StickC. The Power Supply off all 3 Modules is the 3.3V and the GND Pin of the M5StickCs Pin Header. The Buzzer-Modules signal pin is soldered to Pin 26, because this pin allows output signals. 
 Because the Sensor Modules need to be connected to the I2C Bus, which is oly available on the Groov Connector of the M5StickC, a 20cm Grove Sensor cable was utilized. One connected was cutted of, and the 5V and GND Cables were removed. The remaining Yeallow (G32, SDA) and white  (G33, SCL) cables were soldered to the corresponding pins on the PCD, to connect them to the sensor module
 
-![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7296.jpg)
+![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7296.jpg?raw=true)
 ***PCB Front***
 
-![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7297.jpg)
+![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7297.jpg?raw=true)
 ***PCB Back***
 
-![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7298.jpg)
+![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7298.jpg?raw=true)
 ***PCB Cased***
 
 ## 3D-Printing
@@ -72,10 +72,10 @@ Because the Sensor Modules need to be connected to the I2C Bus, which is oly ava
 
 The Sensor PCB Case consists out of 3 parts, a body frame, a front and a bottom part. For the Assembly, the Soldered PCB is first fittet into the Body Frame from the bottom so that the case mathes the pin header exactly. The Sensor cable is the placed into the small hole on the top side of the frame. After that, the Front and Bottom Party are crewed to the case. The Screwd sensor case it then first plugged into the Pin Header of the M5StickC. After that, the Sensor Cable is plugged into the Grove Connecter.
 
-![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7298.jpg)
+![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7298.jpg?raw=true)
 ***PCB Cased***
 
-![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7299.jpg)
+![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7299.jpg?raw=true)
 ***System Detailed View***
 
 # Arduino Code
@@ -91,24 +91,24 @@ The Sensor PCB Case consists out of 3 parts, a body frame, a front and a bottom 
 
 ## About the Code
 
-![M5STcikC](https://camo.githubusercontent.com/e300c3852f862f672c0fe0b59992ab82985a9da8ecea672ac21a02845e2c09ae/68747470733a2f2f6d35737461636b2e6f73732d636e2d7368656e7a68656e2e616c6979756e63732e636f6d2f696d6167652f6d352d646f63735f636f6e74656e742f636f72652f6d35737469636b635f30312e706e67)
+![M5STcikC](https://camo.githubusercontent.com/e300c3852f862f672c0fe0b59992ab82985a9da8ecea672ac21a02845e2c09ae/68747470733a2f2f6d35737461636b2e6f73732d636e2d7368656e7a68656e2e616c6979756e63732e636f6d2f696d6167652f6d352d646f63735f636f6e74656e742f636f72652f6d35737469636b635f30312e706e67?raw=true)
 
 The Purpose of this Microcontroller Code is to generate Sensor Sate from the SOnsors COnnected to to give an Alarm when the Air Quality is bad. For this reason, the SGP30 Sensor Module measure eCO2 and TVOC in the breathing Air. The BME280 Barometric Sensor is required to calibrate the SGP30, and therefore to enhance its accuracy.
 When the eCO2 value is over 1000 ppm, or the TVOC value is over 150 ppb, an Alarm is triggered. The Alarm will result in an alarm sound provided by the buzzer modele, the built in LED enligh in RED and the display turning RED. By the built in settings menue, the Buzzer can also set into silent mode, where only the LED and the Display are tiggered in case of an alarm. The Alarm Sound is only triggered one time, when the eCO2 or TVOC value hits the threshold value, but the LED will be enlighted in RED untill the Sensor Value is below the threshold again. In addition, the buzzer is also disabled for 1 minute. Because of this, you wont hear multible buzzer alarms, when the sensor value is falling below, and hitting the threshold again within one minute.
 
-![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7309.jpg)
+![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7309.jpg?raw=true)
 ***System Alarm***
 
 The System has three built in views. The Detailed View only shows the eCO2 and the TVOC values, whereas the Air Quality view shows the Time, Temperature, Humidity and the Battery Status in addition. More advanced is the Chart View, which shows the eCO2 value for the last 20min. If the critical Threshold was hit, the bar shown will red, and if the value is below, the bar will be green. 
 To Navigate through the different views, the front Button (Button A) is used. The last view is also Stored in EEPROM, so that the Sensor will start in the last used view when it starts next time.
 
-![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7299.jpg)
+![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7299.jpg?raw=true)
 ***System Detailed View***
 
-![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7300.jpg)
+![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7300.jpg?raw=true)
 ***System Air Quality View***
 
-![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7306.jpg)
+![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7306.jpg?raw=true)
 ***System Chart View***
 
 Nomally, the display is on all time, but it is also possible to disable the display. In this mode, the Front button needs to be pressed one time to turn the display on for 5s. Now, pressing this button again will make the view change.
