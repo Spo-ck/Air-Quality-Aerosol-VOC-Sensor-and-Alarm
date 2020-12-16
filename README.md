@@ -36,7 +36,7 @@ During the COVID-19 Pandemic, monitoring the Air Quality is important. Because o
 * G32:  BME280 SDA, SGP30 SDA
 * G33:  BME280 SCL, SGP30 SCL
 
-![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Electronic/Schematic.png?raw=true)
+![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Electronic/Schematic.png)
 
 ***Electronic Schematic***
 
