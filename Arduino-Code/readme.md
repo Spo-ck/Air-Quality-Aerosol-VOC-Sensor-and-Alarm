@@ -18,6 +18,7 @@ When the eCO2 value is over 1000 ppm, or the TVOC value is over 150 ppb, an Alar
 ***System Alarm***
 
 The System has three built in views. The Detailed View only shows the eCO2 and the TVOC values, whereas the Air Quality view shows the Time, Temperature, Humidity and the Battery Status in addition. More advanced is the Chart View, which shows the eCO2 value for the last 20min. If the critical Threshold was hit, the bar shown will red, and if the value is below, the bar will be green. 
+To Navigate through the different views, the front Button (Button A) is used. The last view is also Stored in EEPROM, so that the Sensor will start in the last used view when it starts next time.
 
 ![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7299.jpg)
 ***System Detailed View***
@@ -27,4 +28,17 @@ The System has three built in views. The Detailed View only shows the eCO2 and t
 
 ![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7306.jpg)
 ***System Chart View***
+
+Nomally, the display is on all time, but it is also possible to disable the display. In this mode, the Front button needs to be pressed one time to turn the display on for 5s. Now, pressing this button again will make the view change.
+
+In Addidion, a settings view is implemented. In the Settings view, one can change the the Display Mode (Display always on or on for 5s) and Alarm Mode (Buzzer turned off or on). This view is opened when the Side Button (Button B) is pressed. In this view, the first option it the Display Mode. When the Front Button is pressed, the Mode will change (Display always on or on for 5s). The Option is confirmed with pressind the Side Button Again. After that, the Settion for the Alarm Mode (Buzzer turned off or on) is opened and can be changed with pressing the Front Button. In general, the active Setting is indicated with a red line on the left side. Pressing the Side Button again will confirm this setting, and you will return to the last Sensor View.
+
+![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7301.jpg)
+***System Settings***
+
 ## How To
+
+## Still tp be implemented
+
+Every Gas Sensor is different, so it also needs to be calibrated. In order to calibrate it, it needs to be turned on for 12h, and this value is then valid for 7 days. To do so, the value needs to be stored in EEPROM, and send to the sensor in the Settings function. Because I never used it for 12h, this is not implemented yet. If not set, the sensor used 400 ppm for eCO2 and 0 ppb for TVOC as calibration value.
+Also, it was not possible to set the display off completely. In the current implementation, it will only be black in the 5s-On mode and not completely off.
