@@ -11,6 +11,8 @@
 
 ## About the Code
 
+![M5STcikC](https://camo.githubusercontent.com/e300c3852f862f672c0fe0b59992ab82985a9da8ecea672ac21a02845e2c09ae/68747470733a2f2f6d35737461636b2e6f73732d636e2d7368656e7a68656e2e616c6979756e63732e636f6d2f696d6167652f6d352d646f63735f636f6e74656e742f636f72652f6d35737469636b635f30312e706e67)
+
 The Purpose of this Microcontroller Code is to generate Sensor Sate from the SOnsors COnnected to to give an Alarm when the Air Quality is bad. For this reason, the SGP30 Sensor Module measure eCO2 and TVOC in the breathing Air. The BME280 Barometric Sensor is required to calibrate the SGP30, and therefore to enhance its accuracy.
 When the eCO2 value is over 1000 ppm, or the TVOC value is over 150 ppb, an Alarm is triggered. The Alarm will result in an alarm sound provided by the buzzer modele, the built in LED enligh in RED and the display turning RED. By the built in settings menue, the Buzzer can also set into silent mode, where only the LED and the Display are tiggered in case of an alarm. The Alarm Sound is only triggered one time, when the eCO2 or TVOC value hits the threshold value, but the LED will be enlighted in RED untill the Sensor Value is below the threshold again. In addition, the buzzer is also disabled for 1 minute. Because of this, you wont hear multible buzzer alarms, when the sensor value is falling below, and hitting the threshold again within one minute.
 
@@ -37,6 +39,11 @@ In Addidion, a settings view is implemented. In the Settings view, one can chang
 ***System Settings***
 
 ## How To
+
+In order to flash this code on the M5StickC, the Arduino IDE needs to download and to be installed first. The, the M5StickCs driver and the above mentioned librarieds need to be installed. You can then open (or copy/past) the code into the IDE and flash it.
+
+* [M5StickC Manual and Software](https://m5stack.com/pages/download)
+* [Arduino IDE](https://www.arduino.cc/en/software)
 
 ## Still tp be implemented
 
