@@ -17,4 +17,14 @@ When the eCO2 value is over 1000 ppm, or the TVOC value is over 150 ppb, an Alar
 ![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7309.jpg)
 ***System Alarm***
 
+The System has three built in views. The Detailed View only shows the eCO2 and the TVOC values, whereas the Air Quality view shows the Time, Temperature, Humidity and the Battery Status in addition. More advanced is the Chart View, which shows the eCO2 value for the last 20min. If the critical Threshold was hit, the bar shown will red, and if the value is below, the bar will be green. 
+
+![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7299.jpg)
+***System Detailed View***
+
+![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7300.jpg)
+***System Air Quality View***
+
+![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7306.jpg)
+***System Chart View***
 ## How To
