@@ -125,7 +125,7 @@ In order to flash this code on the M5StickC, the Arduino IDE needs to download a
 * [M5StickC Manual and Software](https://m5stack.com/pages/download)
 * [Arduino IDE](https://www.arduino.cc/en/software)
 
-## Still tp be implemented
+## Still to be implemented
 
 Every Gas Sensor is different, so it also needs to be calibrated. In order to calibrate it, it needs to be turned on for 12h, and this value is then valid for 7 days. To do so, the value needs to be stored in EEPROM, and send to the sensor in the Settings function. Because I never used it for 12h, this is not implemented yet. If not set, the sensor used 400 ppm for eCO2 and 0 ppb for TVOC as calibration value.
 Also, it was not possible to set the display off completely. In the current implementation, it will only be black in the 5s-On mode and not completely off.
