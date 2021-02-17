@@ -5,9 +5,6 @@ During the COVID-19 Pandemic, monitoring the Air Quality is important. Because o
 ![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7306.jpg?raw=true)
 ***System Chart View***
 
-![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7308.jpg?raw=true)
-***System as Smart Watch close up***
-
 ## Electronic
 
 ### Part List
@@ -117,6 +114,9 @@ In addidion, a settings view is implemented. In the settings view, one can chang
 
 ![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7301.jpg)
 ***System Settings***
+
+![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7308.jpg?raw=true)
+***System as Smart Watch close up***
 
 ### How To
 
