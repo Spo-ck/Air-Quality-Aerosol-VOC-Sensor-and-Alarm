@@ -128,6 +128,25 @@ In order to flash this code on the M5StickC, the Arduino IDE needs to download a
 * [M5StickC Manual and Software](https://m5stack.com/pages/download)
 * [Arduino IDE](https://www.arduino.cc/en/software)
 
+## Limit Values
+
+In my design I used the value of 1000 ppm eCO2 and 150 ppb TVOC as limits for an alarm of the Sensor System. These limits mark the boundary condition for unobjectionable indoorair, above the limits the airquality is questionable, but not infectious. I got these values from the following sources:
+
+* [Umweltbundesamt CO2 Grenzwerte in Innenräumen](https://www.umweltbundesamt.de/sites/default/files/medien/pdfs/kohlendioxid_2008.pdf)
+* [Air-Q TVOC Limits](https://www.air-q.com/messwerte/voc)
+
+## Datasheets
+
+* [Sensurion SGP30 Gas Sensor](https://www.sensirion.com/fileadmin/user_upload/customers/sensirion/Dokumente/9_Gas_Sensors/Datasheets/Sensirion_Gas_Sensors_Datasheet_SGP30.pdf)
+* [Bosh Sensortech BME280 Barometric Sensor](https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf)
+
+## Hot Sensors
+
+![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IR20210407_0488a.png?raw=true)
+***Thermal Scan***
+
+Some users reported their SGP30 Sensor Boards where heating up, but during my testruns, I was not able to feel the heat. To clearify the issue, I did a thermal scan of my Sensor System. In general, the SGP30 sensor uses hot plates to measure TVOC and CO2 equivalents. Because of this, the Sensor gets hot in its centre spot, and also heats up its case. In my thermal scan, the sensors case (green) heated up to 43°C, and the central hot plate (red) heated up to 52°C. Since my sensor did not consume more current during my testruns then expected, since it was perfectly working with four sensor readings per second and because I was not able to sense this heat with my finger on the sensor, I would say it is save to use the sensor and reasonable that its getting hot.
+
 ## Still to be implemented
 
 Every Gas Sensor is different, so it also needs to be calibrated. In order to calibrate it, it needs to be turned on for 12h, and this value is then valid for 7 days. To do so, the value needs to be stored in EEPROM, and send to the sensor in the Settings function. Because I never used it for 12h, this is not implemented yet. If not set, the sensor used 400 ppm for eCO2 and 0 ppb for TVOC as calibration value.
