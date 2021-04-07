@@ -5,6 +5,9 @@ During the COVID-19 Pandemic, monitoring the Air Quality is important. Because o
 ![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7306.jpg?raw=true)
 ***System Chart View***
 
+![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7516.jpg?raw=true)
+***System Chart View***
+
 ## Electronic
 
 ### Part List
