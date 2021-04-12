@@ -130,7 +130,7 @@ In order to flash this code on the M5StickC, the Arduino IDE needs to download a
 
 ## Limit Values
 
-In my design I used the value of 1000 ppm eCO2 and 150 ppb TVOC as limits for an alarm of the Sensor System. These limits mark the boundary condition for unobjectionable indoorair, above the limits the airquality is questionable, but not infectious. I got these values from the following sources:
+In my design I used the value of 1000 ppm eCO2 and 150 ppb TVOC as limits for an alarm of the Sensor System. These limits mark the boundary condition for unobjectionable indoorair, between 1000 ppm and 2000ppm CO2 and between 150 ppb and 1300 ppb TVOC the airquality is questionable. Above these limits the Airquality is not directly infectious, but hygienically inacceptable. I got these values from the following sources:
 
 * [Umweltbundesamt CO2 Grenzwerte in Innenräumen](https://www.umweltbundesamt.de/sites/default/files/medien/pdfs/kohlendioxid_2008.pdf)
 * [Air-Q TVOC Limits](https://www.air-q.com/messwerte/voc)
