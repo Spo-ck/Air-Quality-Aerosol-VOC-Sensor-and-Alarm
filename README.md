@@ -2,10 +2,10 @@
 
 During the COVID-19 Pandemic, monitoring the Air Quality is important. Because of this, I developed this compact Air Quality Monitor based on the M5StickC Microcontroller and the SGP30 Sensor. The System is very small and can also be worn as a smart watch. When the eCO2  hits the threshold of 1000 ppm or the TVOC hit the threshold of 150 ppb, the sensor will trigger an alarm (sound and lght), so that you can leave a dangerous and potentially infectious room or open the windows.
 
-![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7516.jpg?raw=true)
+![image](https://raw.githubusercontent.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/main/Photos/IMG_8950.jpg)
 ***System Chart View***
 
-![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7306.jpg?raw=true)
+![image](https://github.com/Spo-ck/Air-Quality-Aerosol-VOC-Sensor-and-Alarm/blob/main/Photos/IMG_7516.jpg?raw=true)
 ***System Chart View***
 
 ## Electronic
